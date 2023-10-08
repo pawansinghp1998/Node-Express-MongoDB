@@ -1,22 +1,13 @@
-const lib = require("./lib.js");
-
-//import { sum } from "./lib.js";
-
 const fs = require("fs");
+const http = require("http");
 
-const t1 = performance.now();
+const htmlData = fs.readFileSync("index.html", "utf-8");
 
-//read file synchronously
-const txt = fs.readFileSync("demo.txt", "utf-8");
+//one of the backend task is static hosting
 
-//read file asynchronously
-// fs.readFile("demo.txt", "utf-8", (err, txt) => {
-//   console.log(txt);
-// });
+const server = http.createServer((req, res) => {
+  //sending static file
+  res.end(htmlData);
+});
 
-const t2 = performance.now();
-//console.log("Hello");
-//console.log(sum(2, 3), lib.diff(5, 3));
-
-//console.log(txt);
-console.log(t2 - t1);
+server.listen(3000);
